@@ -1,5 +1,9 @@
 #!/usr/bin/env python3
 
+## Organiza todos los videos descargados y sus metadatos en carpetas con el nombre del id del video.
+## Autor: Aitor Galán García
+## 5 de Noviembre de 2019
+
 import os
 import shutil
 
