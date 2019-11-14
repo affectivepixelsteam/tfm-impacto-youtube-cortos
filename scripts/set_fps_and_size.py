@@ -14,14 +14,19 @@ for y in years:
     for directorio in dirs:
         path_inside_directorio = os.path.join(folder_path, directorio)
         video_id = directorio
-        video_input = video_id + '.mp4'
-        video_output = 'NEW_FPS_' + video_id + '.mp4'
+        video_in = video_id + '.mp4'
+        video_fps = 'NEW_FPS_TWICE_' + video_id + '.mp4'
         os.chdir(path_inside_directorio)
-        cmd = 'ffmpeg -i ' + video_input + ' -filter:v fps=fps=24 ' + video_output
-        os.system(cmd)
-        video = cv2.VideoCapture(video_input)
-        height = int(video.get(4))
-        final = 'RESIZED_' + video_id + '.mp4'
-        if height > 480:
-            cmd2 = 'ffmpeg -i ' + video_output + ' -vf scale=848:480 ' + final
-            os.system(cmd2)
+        final = 'RESIZEDTWICE_' + video_id + '.mp4'
+        if video_fps in path_inside_directorio:
+            video = cv2.VideoCapture(video_fps)
+            height = int(video.get(4))
+            if height > 480:
+                cmd = 'ffmpeg -i ' + video_fps + ' -vf scale=848:480 ' + final
+                os.system(cmd)
+        else:
+            video = cv2.VideoCapture(video_in)
+            height = int(video.get(4))
+            if height > 480:
+                cmd = 'ffmpeg -i ' + video_in + ' -vf scale=848:480 ' + final
+                os.system(cmd)
