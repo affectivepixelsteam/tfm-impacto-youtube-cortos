@@ -50,12 +50,12 @@ def set_new_metadata_csv(csv_file):
                      importing_row[10]]]
     return new_metadata
 
-type = input("CSV or JSON?")
+type = input("CSV or JSON? ")
 years = ['2014', '2015', '2016', '2017', '2018']
 
 for y in years:
 
-    folder_path = os.path.join('/home/aitorgalan/Escritorio/tfm-impacto-youtube-cortos/DATABASES', y)
+    folder_path = os.path.join('/mnt/RESOURCES/tfm-impacto-youtube-cortos/DATABASES', y)
     dirs = os.listdir(folder_path)
     for directorio in dirs:
         path_inside_directorio = os.path.join(folder_path, directorio)
@@ -63,7 +63,7 @@ for y in years:
         json_file = directorio + '.info.json'
 
 
-        if type == 'CSV' or type == 'csv':
+        if (type == 'CSV') or (type == 'csv'):
             new_csv =  directorio + '.csv'
             new_metadata = set_new_metadata_csv(json_file)
 
@@ -72,7 +72,7 @@ for y in years:
                 writer.writerows(new_metadata)
             csv_file_end.close()
 
-        elif type == 'JSON' or type == 'json':
+        elif (type == 'JSON') or (type == 'json'):
             new_json = 'new_' + json_file
             new_metadata = set_new_metadata_json(json_file)
             with open(new_json, 'w+') as json_file_end:
