@@ -56,7 +56,6 @@ gender_target_size = gender_classifier.input_shape[1:3]
 
 years = ['2014', '2015', '2016', '2017', '2018']
 
-
 for y in years:
 
     folder_path = os.path.join('/mnt/RESOURCES/tfm-impacto-youtube-cortos/DATABASES', y)
@@ -69,9 +68,13 @@ for y in years:
         path_to_frames = os.path.join(path_inside_directorio, frames_folder)
         frames = os.listdir(path_to_frames)
         video_id = directorio
-        csv_headers = [['frame_id', 'face_id', 'man', 'woman', 'emotion', 'max_attention', 'thirds rule', 'bounding box position']]
+        csv_headers = [['frame_id', 'face_id', 'gender', 'emotion', 'max_attention', 'thirds rule', 'bounding box position']]
         csv_name = 'faces_information.csv'
         csv_path = os.path.join(path_inside_directorio, csv_name)
+        with open(csv_path, 'w+') as csv_file_end:
+            writer = csv.writer(csv_file_end)
+            writer.writerows(csv_headers)
+        csv_file_end.close()
         name_new_dir = frames_folder + '_analyzed'
         os.mkdir(name_new_dir)
         path_to_frames_analyzed = os.path.join(path_inside_directorio, name_new_dir)
@@ -222,9 +225,9 @@ for y in years:
                 gender = {'woman': gender_prediction.item(0)*100,
                           'man': gender_prediction.item(1)*100}
 
-                data = [frame_id, face_id, gender, emotion, face_centered_focus, face_in, bounding_box_position]
+                data = [[frame_id, face_id, gender, emotion, face_centered_focus, face_in, bounding_box_position]]
 
-                with open(csv_name, 'w+') as csv_file_end:
+                with open(csv_path, 'a') as csv_file_end:
                     writer = csv.writer(csv_file_end)
                     writer.writerows(data)
                 csv_file_end.close()
